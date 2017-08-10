@@ -1,0 +1,128 @@
+// Primary UCLA Brand Colors.
+@ucla-blue: #3284bf;
+@ucla-gold: #ffe800;
+@ucla-blue-text-only: #347bad;
+
+// Secondary UCLA Brand Colors.
+@ucla-secondary-dark-blue: #1e4b87;
+@ucla-secondary-light-blue: #00a5e5;
+
+// Navbar Colors.
+@ucla-navbar-gold: #FFBC00;
+
+// Mr.nav - he's there and fixed to the top of your page
+// -------------------------
+
+#mr-nav {
+    background-color: #3284bf;
+}
+
+a#fixy-trigger {
+    color: #FFF;
+}
+
+#mr-nav .snap-login-button {
+    color: #FFF;
+}
+
+#admin-menu-trigger img {
+    filter: brightness(200%);
+}
+
+.section-modchooser-text,
+#changenumsections .increase-sections,
+#changenumsections .reduce-sections,
+.paging.paging-morelink a,
+button#local-joulegrader-preview-button,
+button.atto_equation_submit,
+a.yui3-button,
+.yui-button button,
+.felement.ftext input + button,
+.header-button-group .btn,
+.btn.btn-primary,
+.btn.btn-default,
+.button-group > button,
+input.form-submit,
+input[type="button"],
+input[type="submit"],
+button[type="submit"],
+.moodle-dialogue-content button,
+button#restrictbygroup,
+button#livelogs-pause-button,
+#page-admin-tool-monitor-managerules a > button,
+input[type="reset"] {
+    text-decoration: none;
+    font-family: @font-family-base;
+    background: @ucla-blue;
+    color: #FFF;
+    border-color: @ucla-blue;
+
+    &,
+    &:visited {
+        color: #fff;
+        border-color: @ucla-blue;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: @ucla-blue;
+        background: transparent;
+        border-color: @ucla-blue;
+    }
+}
+
+#fgroup_id_buttonar #id_submitbutton, #fgroup_id_buttonar .felement #id_submitbutton2 {
+    text-decoration: none;
+    font-family: @font-family-base;
+    background: @ucla-blue;
+    color: #FFF;
+    border-color: @ucla-blue;
+
+    &,
+    &:visited {
+        color: #fff;
+        border-color: @ucla-blue;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: @ucla-blue;
+        background: transparent;
+        border-color: @ucla-blue;
+    }
+}
+
+#mr-nav .btn.btn-default.snap-login-button {
+    color: #000;
+    background: @ucla-navbar-gold;
+    border-color: @ucla-navbar-gold;
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: #000;
+        background: lighten(@ucla-navbar-gold, 15%);
+        border-color: lighten(@ucla-navbar-gold, 15%);
+    }
+}
+
+#snap-home .logo-ccle {
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: @ucla-navbar-gold;
+    font-weight: bold;
+    font-size: 44px;
+    position: absolute;
+    line-height: 44px;
+
+    &:hover,
+    &:active,
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+#snap-home #navbar-logo {
+    margin: 0px 40px 0px 0px;
+}
