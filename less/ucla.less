@@ -29,6 +29,13 @@ a#fixy-trigger {
     filter: brightness(200%);
 }
 
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: @ucla-blue;
+  text-decoration: none;
+}
+
 .section-modchooser-text,
 #changenumsections .increase-sections,
 #changenumsections .reduce-sections,
@@ -108,21 +115,110 @@ input[type="reset"] {
     }
 }
 
-#snap-home .logo-ccle {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
-    color: @ucla-navbar-gold;
-    font-weight: bold;
-    font-size: 44px;
-    position: absolute;
-    line-height: 44px;
+#snap-home {
+    color: #FFF;
 
     &:hover,
-    &:active,
-    &:focus {
+    &:visited
+    &:focus 
+    &:active {
         text-decoration: none;
     }
 }
 
-#snap-home #navbar-logo {
+#snap-home #navbar-logo #logo-ucla {
     margin: 0px 40px 0px 0px;
+}
+
+#page-enrol-users #fgroup_id_buttons input[type="submit"] {
+    text-decoration: none;
+    font-family: @font-family-base;
+    background: @ucla-blue;
+    color: #FFF;
+    border-color: @ucla-blue;
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: @ucla-blue;
+        background: transparent;
+        border-color: @ucla-blue;
+    }
+}
+
+#page-course-recent #fitem_id_submitbutton input[type="submit"] {
+    text-decoration: none;
+    font-family: @font-family-base;
+    background: @ucla-blue;
+    color: #FFF;
+    border-color: @ucla-blue;
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: @ucla-blue;
+        background: transparent;
+        border-color: @ucla-blue;
+    }
+}
+
+.btn-link {
+  color: @ucla-blue;
+  font-weight: normal;
+  border-radius: 0;
+}
+.btn-link,
+.btn-link:active,
+.btn-link.active,
+.btn-link[disabled],
+fieldset[disabled] .btn-link {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.btn-link,
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:active {
+  border-color: transparent;
+}
+.btn-link:hover,
+.btn-link:focus {
+  color: @ucla-blue-text-only;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+a,
+a:visited,
+.btn-link {
+  color: @ucla-blue;
+}
+a:focus,
+.dropdown-toggle:focus {
+  outline: 3px solid @ucla-blue;
+}
+
+#id_cancel {
+    color: @ucla-blue;
+}
+
+#toc-mobile-menu-toggle {
+    background-color: @ucla-blue;
+}
+
+#page-mast #snap-coverimagecontrol .btn {
+    color: @ucla-blue;
+    
+    &:visited {
+        color: @ucla-blue;
+    }
+    
+    &:hover,
+    &:active,
+    &:focus {
+        color: #FFF;
+        background-color: @ucla-blue;
+    }
+    
 }
