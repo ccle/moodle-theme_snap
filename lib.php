@@ -105,7 +105,7 @@ function theme_snap_set_customcss($css, $customcss) {
  * @return array
  */
 function theme_snap_get_bootswatch_variables(theme_config $theme) {
-    $settings['brand-primary'] = !empty($theme->settings->themecolor) ? $theme->settings->themecolor : '#3bcedb';
+    $settings['brand-primary'] = !empty($theme->settings->themecolor) ? $theme->settings->themecolor : '#3284bf';
     $userfontsans  = $theme->settings->headingfont;
     if (empty($userfontsans) || in_array($userfontsans, ['Roboto', '"Roboto"'])) {
         $userfontsans = '';

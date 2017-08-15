@@ -45,21 +45,32 @@ use theme_snap\renderables\bb_dashboard_link;
 </div>
 
 <?php
-    $sitefullname = format_string($SITE->fullname);
-    
+
     // START UCLA MOD: CCLE-6832 - Update the CSS for the SNAP theme to match UCLA colors.
     // Always show the UCLA and CCLE logos.
-    $sitename = $sitefullname;
-    $navbar_logos = [
+//    $sitefullname = format_string($SITE->fullname);
+
+//    $attrs = array(
+//        'aria-label' => get_string('home', 'theme_snap'),
+//        'id' => 'snap-home',
+//        'title' => $sitefullname,
+//    );
+
+//    if (!empty($PAGE->theme->settings->logo)) {
+//        $sitefullname = '<span class="sr-only">'.format_string($SITE->fullname).'</span>';
+//        $attrs['class'] = 'logo';
+//    }
+
+    $navbarlogos = [
         'uclalogo' => $OUTPUT->pix_url('ucla-logo', 'theme'),
         'cclelogo' => $OUTPUT->pix_url('ccle-logo', 'theme')
     ];
-    $sitefullname = $OUTPUT->render_from_template('theme_snap/navbar_logo', $navbar_logos);
-    // END UCLA MOD: CCLE-6832.
+    $sitefullname = $OUTPUT->render_from_template('theme_snap/navbar_logo', $navbarlogos);
     $attrs = array(
         'aria-label' => get_string('home', 'theme_snap'),
         'id' => 'snap-home'
     );
+    // END UCLA MOD: CCLE-6832.
 
     echo html_writer::link($CFG->wwwroot, $sitefullname, $attrs);
 ?>

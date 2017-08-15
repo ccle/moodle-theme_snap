@@ -88,15 +88,6 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $snapsettings->add($setting);
 
-     // Logo file setting.
-    $name = 'theme_snap/logo';
-    $title = new lang_string('logo', 'theme_snap');
-    $description = new lang_string('logodesc', 'theme_snap');
-    $opts = array('accepted_types' => array('.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'));
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo', 0, $opts);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $snapsettings->add($setting);
-
     // Favicon file setting.
     $name = 'theme_snap/favicon';
     $title = new lang_string('favicon', 'theme_snap');

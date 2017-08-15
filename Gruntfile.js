@@ -160,6 +160,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-lesslint");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-exec");
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     // Register tasks.
     grunt.registerTask("default", ["watch"]);
