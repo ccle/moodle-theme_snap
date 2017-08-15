@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 require(__DIR__.'/header.php');
 
 $coursemainpage = strpos($PAGE->pagetype, 'course-view-') === 0;
-$tocformat = ($COURSE->format == 'topics' || $COURSE->format == 'weeks');
+$tocformat = ($COURSE->format == 'topics' || $COURSE->format == 'weeks' || $COURSE->format =='ucla');
 $leftnav = !empty($PAGE->theme->settings->leftnav);
 ?>
 <!-- moodle js hooks -->
