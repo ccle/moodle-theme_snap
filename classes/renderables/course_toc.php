@@ -86,7 +86,7 @@ class course_toc implements \renderable, \templatable{
             $course = $COURSE;
         }
 
-        $supportedformats = ['weeks', 'topics'];
+        $supportedformats = ['weeks', 'topics', 'ucla'];
         if (!in_array($course->format, $supportedformats)) {
             return;
         } else {
