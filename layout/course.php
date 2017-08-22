@@ -48,10 +48,12 @@ if (!empty($coverimagecss)) : ?>
 
 <div id="page-mast">
 <?php
-if ($coursemainpage) {
-    $output = $PAGE->get_renderer('core', 'course');
-    echo $output->course_format_warning();
-}
+// START UCLA MOD: CCLE-6895 - Remove format warning.
+//if ($coursemainpage) {
+//    $output = $PAGE->get_renderer('core', 'course');
+//    echo $output->course_format_warning();
+//}
+// END UCLA MOD: CCLE-6895.
 echo $OUTPUT->page_heading();
 echo $OUTPUT->course_header();
 // Note, there is no blacklisting for the edit blocks button on course pages.
