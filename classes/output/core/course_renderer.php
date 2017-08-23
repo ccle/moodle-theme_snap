@@ -913,7 +913,10 @@ class course_renderer extends \core_course_renderer {
         global $COURSE, $PAGE, $OUTPUT;
 
         $format = $COURSE->format;
-        if (in_array($format, ['weeks', 'topics'])) {
+        // START UCLA MOD: CCLE-6859 - Remove format warning.
+        //if (in_array($format, ['weeks', 'topics'])) {
+        if (in_array($format, ['weeks', 'topics','ucla'])) {
+        // END UCLA MOD: CCLE - 6859.
             return '';
         }
 
