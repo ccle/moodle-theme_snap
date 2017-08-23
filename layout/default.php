@@ -86,7 +86,10 @@ if ($hasadminbutton) {
         '/user/profile/index.php',
         '/mnet/service/enrol/index.php',
         '/local/mrooms/view.php',
-        '/local/xray/view.php'
+        '/local/xray/view.php',
+        '/blocks/ucla_rearrange/rearrange.php',
+        '/blocks/ucla_modify_coursemenu/modify_coursemenu.php',
+        '/blocks/ucla_copyright_status/view.php'
     );
     $pagepath = local::current_url_path();
 
