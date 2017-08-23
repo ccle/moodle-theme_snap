@@ -101,7 +101,9 @@ if(!empty($socialmedialinks)) {
 <!--END UCLA MOD: CCLE-6839.-->
 <!-- close mrooms footer -->
 <div id="page-footer">
-<?php echo $OUTPUT->lang_menu(); ?>
+<!--START UCLA MOD: CCLE-6839-remove junk in footer.-->
+<!-- <?php echo $OUTPUT->lang_menu(); ?> -->
+<!--END UCLA MOD: CCLE-6839.-->
 <?php echo $OUTPUT->standard_footer_html(); ?>
 </div>
 </footer>
