@@ -1,5 +1,6 @@
 // Primary UCLA Brand Colors.
 @ucla-blue: #3284bf;
+@ucla-blue-hover: #2a6e9f;
 @ucla-gold: #ffe800;
 @ucla-blue-text-only: #347bad;
 
@@ -9,6 +10,9 @@
 
 // Navbar Colors.
 @ucla-navbar-gold: #FFBC00;
+
+@ucla-link: #0072b1;
+@ucla-link-hover: darken(#0072b1, 10%);
 
 // Mr.nav - he's there and fixed to the top of your page
 // -------------------------
@@ -27,6 +31,11 @@ a#fixy-trigger {
 
 #admin-menu-trigger img {
     filter: brightness(200%);
+}
+
+#admin-menu-trigger:hover,
+#admin-menu-trigger:focus {
+    border-color: #FFF;
 }
 
 .btn:hover,
@@ -57,29 +66,14 @@ button[type="submit"],
 button#restrictbygroup,
 button#livelogs-pause-button,
 #page-admin-tool-monitor-managerules a > button,
-input[type="reset"] {
-    text-decoration: none;
-    font-family: @font-family-base;
-    background: @ucla-blue;
-    color: #FFF;
-    border-color: @ucla-blue;
-
-    &,
-    &:visited {
-        color: #fff;
-        border-color: @ucla-blue;
-    }
-
-    &:hover,
-    &:active,
-    &:focus {
-        color: @ucla-blue;
-        background: transparent;
-        border-color: @ucla-blue;
-    }
-}
-
-#fgroup_id_buttonar #id_submitbutton, #fgroup_id_buttonar .felement #id_submitbutton2 {
+input[type="reset"],
+#fgroup_id_buttonar #id_submitbutton, 
+#fgroup_id_buttonar .felement #id_submitbutton2,
+#page-enrol-users #fgroup_id_buttons input[type="submit"],
+#page-course-recent #fitem_id_submitbutton input[type="submit"],
+#page-course-view-topics .buttons .singlebutton input[type="submit"],
+#page-admin-tool-lp-coursecompetencies .btn.btn-primary,
+#fgroup_id_buttonar2 .felement #id_submitbutton2 {
     text-decoration: none;
     font-family: @font-family-base;
     background: @ucla-blue;
@@ -130,40 +124,8 @@ input[type="reset"] {
     margin: 0px 40px 0px 0px;
 }
 
-#page-enrol-users #fgroup_id_buttons input[type="submit"] {
-    text-decoration: none;
-    font-family: @font-family-base;
-    background: @ucla-blue;
-    color: #FFF;
-    border-color: @ucla-blue;
-
-    &:hover,
-    &:active,
-    &:focus {
-        color: @ucla-blue;
-        background: transparent;
-        border-color: @ucla-blue;
-    }
-}
-
-#page-course-recent #fitem_id_submitbutton input[type="submit"] {
-    text-decoration: none;
-    font-family: @font-family-base;
-    background: @ucla-blue;
-    color: #FFF;
-    border-color: @ucla-blue;
-
-    &:hover,
-    &:active,
-    &:focus {
-        color: @ucla-blue;
-        background: transparent;
-        border-color: @ucla-blue;
-    }
-}
-
 .btn-link {
-  color: @ucla-blue;
+  color: @ucla-link;
   font-weight: normal;
   border-radius: 0;
 }
@@ -176,31 +138,43 @@ fieldset[disabled] .btn-link {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+.btn-link:visited,
+.btn-link:visited:hover,
+.bth-link:visited:focus {
+    color: #536895;
+}
 .btn-link,
 .btn-link:hover,
 .btn-link:focus,
 .btn-link:active {
   border-color: transparent;
+  color: @ucla-link-hover;
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: @ucla-blue-text-only;
+  color: @ucla-link;
   text-decoration: underline;
   background-color: transparent;
 }
 
 a,
-a:visited,
-.btn-link {
-  color: @ucla-blue;
+a:visited {
+  color: #536895;
 }
 a:focus,
 .dropdown-toggle:focus {
-  outline: 3px solid @ucla-blue;
+  outline: 3px solid @ucla-link;
 }
 
 #id_cancel {
     color: @ucla-blue;
+    
+    &:hover,
+    &:visited
+    &:focus 
+    &:active {
+        color: @ucla-blue;
+    }
 }
 
 #toc-mobile-menu-toggle {
@@ -221,4 +195,77 @@ a:focus,
         background-color: @ucla-blue;
     }
     
+}
+
+#page-mast h1 {
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#page-course-view-topics #notice {
+    color: @ucla-blue;
+}
+
+.helptooltip img {
+    &:visited,
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: @ucla-blue;
+        border-color: @ucla-blue;
+    }
+}
+
+.fixy .fixy-header,
+#fixy-user {
+    background-color: @ucla-blue;
+}
+
+a,
+#page-mast #course-toc a,
+.section-modchooser-link span,
+.section-modchooser-link .btn .btn-link,
+.col-sm-6 snap-modchooser section_add_menus,
+#fixy-my-courses .courseinfo-body a.coursefullname,
+.summary a,
+a.next_section,
+a.previous_section,
+.section-modchooser-link .btn .btn-link {
+    color: @ucla-link;
+    
+    &:visited,
+    &:visited:hover,
+    &:visted:focus {
+        color: #536895;
+    }
+    
+    &:hover,
+    &:active,
+    &:focus {
+        color: @ucla-link-hover;
+    }
+}
+
+hr {
+    border-top: 1px solid @ucla-blue;
+}
+
+.snap-asset-link a {
+    color: #565656;
+    
+    &:visited,
+    &:visited:hover,
+    &:visted:focus {
+        color: #565656;
+    }
+    
+    &:hover,
+    &:active,
+    &:focus {
+        color: #565656;
+    }
+}
+
+#course-toc ol {
+    list-style-type: none;
 }
