@@ -525,7 +525,7 @@ class shared extends \renderer_base {
                 'title' => $settingsicon.get_string('editcoursesettings', 'theme_snap'),
             );
         }
-
+        
         // Norton grader if installed.
         $iconurl = $OUTPUT->pix_url('joule_grader', 'theme');
         $gradebookicon = '<img src="'.$iconurl.'" class="svg-icon" alt="" role="presentation">';
@@ -551,7 +551,7 @@ class shared extends \renderer_base {
                 );
             }
         }
-        
+
         // Gradebook.
         if (self::gradebook_accessible($coursecontext)) {
             $iconurl = $OUTPUT->pix_url('gradebook', 'theme');
@@ -672,6 +672,37 @@ class shared extends \renderer_base {
                 );
             }
         }
+        // START UCLA MOD: CCLE-6829 - Add Rearrange, Modify, Copyright blocks into Course Tools.
+        // Modify site menu sections.
+        if (has_capability('moodle/course:update', $coursecontext)) {
+            $iconurl = $OUTPUT->pix_url('modify', 'theme');
+            $modifyicon = '<img src="'.$iconurl.'" class="svg-icon" alt="" role="presentation">';
+            $links[] = array(
+                'link' => 'blocks/ucla_modify_coursemenu/modify_coursemenu.php?courseid='.$COURSE->id.'&section=0',
+                'title' => $modifyicon.get_string('pluginname', 'block_ucla_modify_coursemenu')
+            );
+        }
+
+        // Rearrange course materials.
+        if (has_capability('moodle/course:update', $coursecontext)) {
+            $iconurl = $OUTPUT->pix_url('rearrange', 'theme');
+            $rearrangeicon = '<img src="'.$iconurl.'" class="svg-icon" alt="" role="presentation">';
+            $links[] = array(
+                'link' => 'blocks/ucla_rearrange/rearrange.php?courseid='.$COURSE->id.'&section=0',
+                'title' => $rearrangeicon.get_string('rearrange_sections', 'block_ucla_rearrange')
+            );
+        }
+
+        // Manage Copyright.
+        if (has_capability('moodle/course:update', $coursecontext)) {
+            $iconurl = $OUTPUT->pix_url('copyright', 'theme');
+            $copyrighticon = '<img src="'.$iconurl.'" class="svg-icon" alt="" role="presentation">';
+            $links[] = array(
+                'link' => 'blocks/ucla_copyright_status/view.php?courseid='.$COURSE->id.'&section=0',
+                'title' => $copyrighticon.get_string('pluginname', 'block_ucla_copyright_status')
+            );
+        }
+        // END UCLA MOD: CCLE-6829.
 
          // Edit blocks.
          $editblocks = '';

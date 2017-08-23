@@ -86,7 +86,12 @@ if ($hasadminbutton) {
         '/user/profile/index.php',
         '/mnet/service/enrol/index.php',
         '/local/mrooms/view.php',
-        '/local/xray/view.php'
+        '/local/xray/view.php',
+        // START UCLA MOD: CCLE 6829 - Add Rearrange, Modify, Copyright blocks into Course Tools.
+        '/blocks/ucla_rearrange/rearrange.php',
+        '/blocks/ucla_modify_coursemenu/modify_coursemenu.php',
+        '/blocks/ucla_copyright_status/view.php'
+        // END UCLA MOD: CCLE 6829.
     );
     $pagepath = local::current_url_path();
 
