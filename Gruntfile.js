@@ -149,6 +149,23 @@ module.exports = function(grunt) {
                 files: ["amd/src/**/*.js"],
                 tasks: ["amd","decache"],
             },
+        },
+        // Code to minify all css files.
+//        cssmin: {
+//            minify: {
+//                expand: true,
+//                cwd: 'style/',
+//                src: '*.css',
+//                dest: 'style/',
+//                ext: '.css'
+//            }
+//        }
+        // Code to minify only moodle.css.
+        cssmin: {
+            minify: {
+                src: 'style/moodle.css',
+                dest: 'style/moodle.css'
+            }
         }
     });
 
