@@ -150,23 +150,18 @@ module.exports = function(grunt) {
                 tasks: ["amd","decache"],
             },
         },
+        // START UCLA MOD: CCLE-6832 - Update the CSS for the SNAP theme to match UCLA colors.
         // Code to minify all css files.
-//        cssmin: {
-//            minify: {
-//                expand: true,
-//                cwd: 'style/',
-//                src: '*.css',
-//                dest: 'style/',
-//                ext: '.css'
-//            }
-//        }
-        // Code to minify only moodle.css.
         cssmin: {
             minify: {
-                src: 'style/moodle.css',
-                dest: 'style/moodle.css'
+                expand: true,
+                cwd: 'style/',
+                src: '*.css',
+                dest: 'style/',
+                ext: '.css'
             }
         }
+        // END UCLA MOD: CCLE-6832.
     });
 
     // Load contrib tasks.
