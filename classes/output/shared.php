@@ -525,7 +525,7 @@ class shared extends \renderer_base {
                 'title' => $settingsicon.get_string('editcoursesettings', 'theme_snap'),
             );
         }
-
+        
         // Norton grader if installed.
         $iconurl = $OUTPUT->pix_url('joule_grader', 'theme');
         $gradebookicon = '<img src="'.$iconurl.'" class="svg-icon" alt="" role="presentation">';
