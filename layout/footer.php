@@ -86,8 +86,8 @@ if(!empty($socialmedialinks)) {
     echo '<div id="snap_socialmedia_links">'.$socialmedialinks.'</div>';
 }
 ?>
-
-<div id='mrooms-footer' class="helplink text-right">
+<!--START UCLA MOD: CCLE-6839-remove junk in footer.-->
+<!--<div id='mrooms-footer' class="helplink text-right">
     <small>
     <?php
     if ($OUTPUT->page_doc_link()) {
@@ -97,7 +97,8 @@ if(!empty($socialmedialinks)) {
     ?>
     <br/><?php echo $poweredbyrunby ?>
     </small>
-</div>
+</div>-->
+<!--END UCLA MOD: CCLE-6839.-->
 <!-- close mrooms footer -->
 <div id="page-footer">
 <?php echo $OUTPUT->lang_menu(); ?>
