@@ -82,8 +82,10 @@ echo $OUTPUT->course_content_footer();
 ?>
 </section>
 <?php
-require(__DIR__.'/moodle-blocks.php');
 
+// START UCLA MOD: CCLE-6842 - Suppress UCLA Site menu block from showing up in Course Tools.
+// require(__DIR__.'/moodle-blocks.php');
+// END UCLA MOD: CCLE-6842.
 if ($tocformat && $leftnav) {
     echo '</div> <!-- close section -->';
     echo '</div> <!-- close row -->';
