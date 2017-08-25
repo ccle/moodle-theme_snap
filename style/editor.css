@@ -8157,8 +8157,8 @@ section#region-main
   text-align: center;
 }
 .singlebutton input[value="Turn editing on"] {
-  margin-top: 30px;
-  margin-bottom: 15px;
+  position: relative;
+  top: 15px;
 }
 .singlebutton input[value="Turn editing on"]:hover {
   background-color: #ef7c1f;
