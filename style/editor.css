@@ -8156,6 +8156,16 @@ section#region-main
   margin: 0.5em 0;
   text-align: center;
 }
+.singlebutton input[value="Turn editing on"] {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.singlebutton input[value="Turn editing on"]:hover {
+  background-color: #ef7c1f;
+  border-color: #ef7c1f;
+  color: white;
+  border-bottom-color: #d6680f;
+}
 .format-topics #page-mast .singlebutton,
 .format-weeks #page-mast .singlebutton {
   display: none;
