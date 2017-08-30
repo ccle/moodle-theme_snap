@@ -1358,11 +1358,13 @@ form.togglecompletion {
         }
     }
 }
-
+// START UCLA MOD: CCLE-6846 - Improve Editing mode on/off.
 /* add bg colour for actions when editing */
-.editing .actions {
+/*.editing .actions {
     background-color: rgba(255,255,255,0.95);
-}
+}*/
+// END UCLA MOD: CCLE-6846.
+
 /* remove bg colour for actions when menu shown */
 .action-menu-shown .actions {
     background-color: transparent;
@@ -1396,12 +1398,13 @@ div.commands ul.menubar {
     display: none;
 }
 
-.toggle-display.textmenu:after {
+// START UCLA MOD: CCLE-6846 - Improve Editing Mode On/Off.
+/*.toggle-display.textmenu:after {
     content: "☰";
     margin-left: 0.5rem;
-}
+}*/
 
-.action-menu-shown .toggle-display.textmenu {
+/*.action-menu-shown .toggle-display.textmenu {
     &:after {
         content: " ";
         background: transparent url("[[pix:theme|close_x]]") repeat;
@@ -1409,8 +1412,8 @@ div.commands ul.menubar {
         width: 1em;
         height: 1em;
     }
-}
-
+}*/
+// END UCLA MOD: CCLE-6846.
 // last min css for marks code changes - make edit button block when editing...
 .action-menu-shown .moodle-actionmenu>ul>li {
     display: block;
