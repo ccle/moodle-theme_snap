@@ -29,6 +29,9 @@ $string['action:duplicateasset'] = 'duplicate asset';
 $string['action:changesectionvisibility'] = 'change section visibility';
 $string['action:highlightsectionvisibility'] = 'highlight section visibility';
 $string['addanewsection'] = 'Create a new section';
+// START UCLA MOD: CCLE-6892 - Add ability to remove cover image.
+$string['addcoverimage'] = 'Add cover image';
+// END UCLA MOD: CCLE-6892.
 $string['addresourceoractivity'] = 'Create learning activity';
 $string['admin'] = 'Admin';
 $string['advancedbrandingheading'] = 'Advanced branding';
@@ -229,6 +232,9 @@ $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 $string['region-side-top'] = 'Top';
 $string['released'] = 'Released: {$a}';
+// START UCLA MOD: CCLE-6892 - Add ability to remove cover image.
+$string['removecoverimage'] = 'Remove cover image';
+// END UCLA MOD: CCLE-6892.
 $string['reopened'] = 'Reopened';
 $string['resourcedisplay'] = 'Resource display';
 $string['resourcedisplayhelp'] = 'Select how attachments and links appear in your course.';
