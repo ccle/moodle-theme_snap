@@ -972,9 +972,9 @@ class core_renderer extends toc_renderer {
      * @throws \moodle_exception
      */
     public function cover_image_selector() {
-        global $PAGE;
+        global $PAGE, $COURSE;
         if (has_capability('moodle/course:changesummary', $PAGE->context)) {
-            $vars = ['accepttypes' => local::supported_coverimage_typesstr()];
+            $vars = ['accepttypes' => local::supported_coverimage_typesstr(), 'courseid' => $COURSE->id];
             return $this->render_from_template('theme_snap/cover_image_selector', $vars);
         }
         return null;
