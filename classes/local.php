@@ -1276,6 +1276,40 @@ class local {
         $context = \context_system::instance();
         return (self::coverimage($context));
     }
+    
+    // START UCLA MOD: CCLE-6892 - Add ability to remove cover image.
+    /**
+     * Delete course cover image.
+     *
+     * @param $courseid
+     * @return bool
+     * @throws \coding_exception
+     */
+    public static function delete_course_coverimage($courseid) {
+        $context = \context_course::instance($courseid);
+        
+        if (!has_capability('moodle/course:manageactivities', $context)) {
+            return false;
+        }
+        
+        $contextid = $context->id;
+        $fs = get_file_storage();
+
+        $files = $fs->get_area_files($contextid, 'theme_snap', 'coverimage', 0, "itemid, filepath, filename", false);
+        if (!$files) {
+            return false;
+        }
+        if (count($files) > 1) {
+            // Note this is a coding exception and not a moodle exception because there should never be more than one
+            // file in this area, where as the course summary files area can in some circumstances have more than on file.
+            throw new \coding_exception('Multiple files found in course coverimage area (context '.$contextid.')');
+        }
+        foreach ($files as $file) {
+            $file->delete();
+        }
+        return false;
+    }
+    // END UCLA MOD: CCLE-6892.
 
     /**
      * Get cover image url for front page.
@@ -1356,7 +1390,10 @@ class local {
             if ($contextlevel == CONTEXT_SYSTEM) {
                 $originalfile = self::site_coverimage_original($context);
             } else {
-                $originalfile = self::get_course_firstimage($context->instanceid);
+            // START UCLA MOD: CCLE-6892 - Add ability to remove cover image.
+            // Don't get file from overviewfiles, which restores the cover image that we deleted.
+            // $originalfile = self::get_course_firstimage($context->instanceid);
+            // END UCLA MOD: CCLE-6892.
             }
         }
 
