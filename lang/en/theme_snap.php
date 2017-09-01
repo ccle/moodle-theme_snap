@@ -229,6 +229,7 @@ $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 $string['region-side-top'] = 'Top';
 $string['released'] = 'Released: {$a}';
+$string['removecoverimage'] = 'Remove cover image';
 $string['reopened'] = 'Reopened';
 $string['resourcedisplay'] = 'Resource display';
 $string['resourcedisplayhelp'] = 'Select how attachments and links appear in your course.';

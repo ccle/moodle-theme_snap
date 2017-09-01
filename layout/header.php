@@ -30,6 +30,8 @@ $PAGE->set_popup_notification_allowed(false);
 // Require standard page js.
 \theme_snap\output\shared::page_requires_js();
 
+$delete = optional_param('delete', '', PARAM_ALPHA);
+
 echo $OUTPUT->doctype();
 ?>
 
@@ -48,7 +50,9 @@ echo $OUTPUT->doctype();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href='//fonts.googleapis.com/css?family=Roboto:500,100,400,300' rel='stylesheet' type='text/css'>
 <?php
-
+if ($delete === 'delete') {
+    \theme_snap\local::delete_course_coverimage($COURSE->id);
+}
 // Output course cover image?
 if ($COURSE->id != SITEID) {
     $coverimagecss = \theme_snap\local::course_coverimage_css($COURSE->id);
