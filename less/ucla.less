@@ -396,7 +396,37 @@ label.state-visible[for="snap-cover-delete"]:before {
 #snap-changecoverimageconfirmation {
     float: right;
 }
+
 #region-main,
 .course-content {
     max-width: none;
+}
+
+#helpdropdown .needhelpbtn {
+    &:extend(.btn);
+    &:extend(.btn-primary);
+    &:extend(.dropdown-toggle);
+    color: #000;
+    background: @ucla-navbar-gold;
+    border-color: @ucla-navbar-gold;
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: #000;
+        background: lighten(@ucla-navbar-gold, 15%);
+        border-color: lighten(@ucla-navbar-gold, 15%);
+    }
+}
+
+#helpdropdown .dropdown-menu li a {
+    &:hover {
+        color: #FFF;
+        background: @ucla-blue-hover;
+    }
+    &:active,
+    &:focus {
+        color: #FFF;
+        background: @ucla-blue;
+    }
 }
