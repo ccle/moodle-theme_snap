@@ -972,11 +972,18 @@ class core_renderer extends toc_renderer {
      * @throws \moodle_exception
      */
     public function cover_image_selector() {
+        // START UCLA MOD: CCLE-6892 - Add ability to remove cover image.
+        // global $PAGE;
+        // if (has_capability('moodle/course:changesummary', $PAGE->context)) {
+        //     $vars = ['accepttypes' => local::supported_coverimage_typesstr()];
+        //     return $this->render_from_template('theme_snap/cover_image_selector', $vars);
+        // }
         global $PAGE, $COURSE;
         if (has_capability('moodle/course:changesummary', $PAGE->context)) {
             $vars = ['accepttypes' => local::supported_coverimage_typesstr(), 'courseid' => $COURSE->id];
             return $this->render_from_template('theme_snap/cover_image_selector', $vars);
         }
+        // END UCLA MOD: CCLE-6892.
         return null;
     }
 

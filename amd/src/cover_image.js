@@ -56,6 +56,14 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
 
             // Take a backup of what the current background image url is (if any).
             $('#page-header').data('servercoverfile', $('#page-header').css('background-image'));
+            
+            // Only show the remove cover image button if there is a cover image. Otherwise, hide it.
+            if ($('.mast-image').length) {
+                $('#snap-coverimagecontrol-remove').show();
+            } else {
+                $('#snap-coverimagecontrol-remove').hide();
+                $('#snap-coverimagecontrol-selector span').text('Add cover image');
+            }
 
             var file, filedata;
             $('#changecoverimage').click(function(e) {
@@ -74,6 +82,14 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
                 $('#snap-changecoverimageconfirmation').removeClass('state-visible');
                 $('label[for="snap-coverfiles"]').addClass('state-visible');
                 $('#snap-coverfiles').val('');
+                // Button text should be "Add" when there is no image, and should be "change" when there is already a cover image.
+                if ($('.mast-image').length) {
+                    $('#snap-coverimagecontrol-remove').show();
+                    $('#snap-coverimagecontrol-selector span').text('Change cover image');
+                } else {
+                    $('#snap-coverimagecontrol-remove').hide();
+                    $('#snap-coverimagecontrol-selector span').text('Add cover image');
+                }
             };
 
             /**
@@ -85,6 +101,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
                 $('label[for="snap-coverfiles"]').removeClass('state-visible');
                 $('#snap-changecoverimageconfirmation').addClass('state-visible');
                 $('body').removeClass('cover-image-change');
+                $('#snap-coverimagecontrol-remove').hide();
             };
 
             $('#snap-coverfiles').on('change', function(e) {

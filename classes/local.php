@@ -1300,12 +1300,7 @@ class local {
             throw new \coding_exception('Multiple files found in course coverimage area (context '.$contextid.')');
         }
         foreach ($files as $file) {
-//            echo var_dump ($file);
-            if (!$file->delete()) {
-//                echo "failed";
-            } else {
-//                echo "success";
-            }
+            $file->delete();
         }
         return false;
     }
@@ -1392,7 +1387,7 @@ class local {
             } else {
             // START UCLA MOD: CCLE-6892 - Add ability to remove cover image.
             // Don't get file from overviewfiles, which restores the cover image that we deleted.
-//                $originalfile = self::get_course_firstimage($context->instanceid);
+            // $originalfile = self::get_course_firstimage($context->instanceid);
             // END UCLA MOD: CCLE-6892.
             }
         }
