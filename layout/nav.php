@@ -37,6 +37,25 @@ use theme_snap\renderables\bb_dashboard_link;
         $bblink = new bb_dashboard_link();
         echo $OUTPUT->render($bblink);
     }
+
+    echo html_writer::start_div("dropdown pull-left", array('id' => 'helpdropdown', 'style' => 'margin-right:8px;'));
+
+    echo html_writer::start_tag('button', array('class' => 'needhelpbtn', 'data-toggle' => 'dropdown'
+    ));
+    echo get_string('help_n_feedback', 'theme_uclashared') . ' ';
+    echo html_writer::span('', 'caret');
+    echo html_writer::end_tag('button');
+
+    $menuitems = custom_menu::convert_text_to_menu_nodes($CFG->custommenuitems, null);
+
+    $helplinks = array();
+    foreach ($menuitems as $item) {
+        $helplinks[] = html_writer::link($item->get_url(), $item->get_text());
+    }
+
+    echo html_writer::alist($helplinks, array('class' => 'dropdown-menu'));
+    echo html_writer::end_div();
+
     echo $OUTPUT->fixed_menu();
     echo core_renderer::search_box();
     $settingslink = new settings_link();

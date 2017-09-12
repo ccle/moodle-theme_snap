@@ -322,3 +322,121 @@ hr {
 .course-content {
     max-width: none;
 }
+
+#helpdropdown .needhelpbtn {
+    &:extend(.btn);
+    &:extend(.btn-primary);
+    &:extend(.dropdown-toggle);
+    color: #000;
+    background: @ucla-navbar-gold;
+    border-color: @ucla-navbar-gold;
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: #000;
+        background: lighten(@ucla-navbar-gold, 15%);
+        border-color: lighten(@ucla-navbar-gold, 15%);
+    }
+}
+
+#helpdropdown .dropdown-menu li a {
+    &:hover {
+        color: #FFF;
+        background: @ucla-blue-hover;
+    }
+    &:active,
+    &:focus {
+        color: #FFF;
+        background: @ucla-blue;
+    }
+}
+
+// Cover image delete css.
+
+#snap-cover-delete {
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  
+  line-height: 1em;
+  padding: 0;
+  margin-left: 0;
+}
+label[for="snap-cover-delete"] {
+  position: relative;
+  display: none;
+  top: -0.5em;
+}
+label.state-visible[for="snap-cover-delete"] {
+  display: inline-block;
+  cursor: pointer;
+}
+label.state-visible[for="snap-cover-delete"] span {
+  padding: 1em;
+}
+@media (max-width: 767px) {
+  label.state-visible[for="snap-cover-delete"] span {
+    display: none !important;
+  }
+}
+label.state-visible[for="snap-cover-delete"]:before {
+  content: '';
+  background: transparent url("[[pix:theme|trash]]") no-repeat;
+  display: inline-block;
+  margin: -0.5em 0;
+  height: 1.5em;
+  width: 1.5em;
+}
+
+#page-mast #snap-changecoverimageconfirmation .ok,
+#page-mast #snap-changecoverimageconfirmation .disabled .ok,
+#page-mast #snap-changecoverimageconfirmation .ok:visited,
+#page-mast #snap-changecoverimageconfirmation .disabled .ok:visited,
+#page-mast #snap-changecoverimageconfirmation .ok:hover,
+#page-mast #snap-changecoverimageconfirmation .ok:active,
+#page-mast #snap-changecoverimageconfirmation .ok:focus {
+    background-color: @ucla-blue;
+    color: white;
+}
+
+#snap-changecoverimageconfirmation {
+    float: right;
+}
+
+#region-main,
+.course-content {
+    max-width: none;
+}
+
+#helpdropdown .needhelpbtn {
+    &:extend(.btn);
+    &:extend(.btn-primary);
+    &:extend(.dropdown-toggle);
+    color: #000;
+    background: @ucla-navbar-gold;
+    border-color: @ucla-navbar-gold;
+
+    &:hover,
+    &:active,
+    &:focus {
+        color: #000;
+        background: lighten(@ucla-navbar-gold, 15%);
+        border-color: lighten(@ucla-navbar-gold, 15%);
+    }
+}
+
+#helpdropdown .dropdown-menu li a {
+    &:hover {
+        color: #FFF;
+        background: @ucla-blue-hover;
+    }
+    &:active,
+    &:focus {
+        color: #FFF;
+        background: @ucla-blue;
+    }
+}

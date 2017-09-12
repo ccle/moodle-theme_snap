@@ -40,13 +40,15 @@ if ($this->page->user_is_editing() && $PAGE->pagetype == 'site-index') {
 }
 
 /* custom menu edit button - only shown if menu exists */
-$custommenu = $OUTPUT->custom_menu();
+// START UCLA MOD: CCLE-6837 - Move custom menu items back as Help Dropdown
+// $custommenu = $OUTPUT->custom_menu();
+$custommenu = array();
+// END UCLA MOD: CCLE-6837.
 if (!empty($custommenu) && $this->page->user_is_editing() && $PAGE->pagetype == 'site-index') {
     $url = new moodle_url('/admin/settings.php', ['section' => 'themesettings'], 'id_s__custommenuitems');
     $link = html_writer::link($url, get_string('editcustommenu', 'theme_snap'), ['class' => 'btn btn-inverse btn-sm']);
     $custommenu .= '<p class="text-right">'.$link.'</p>';
 }
-
 if (!empty($custommenu) && !empty($footnote)) {
     echo '<div class="row">';
         echo '<div class="col-md-6">';
