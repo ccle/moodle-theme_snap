@@ -42,12 +42,21 @@ section#region-main
 }
 
 // START UCLA MOD: CCLE-6897 - Improve turn editing on button.
-.singlebutton input[value="Turn editing on"] {
+.singlebutton input[value="Turn editing on"], .singlebutton input[value="Turn editing off"] {
     position: relative;
     top: 15px;
+    background-color: #ef7c1f;
+    border-color: #ef7c1f;
+    border-bottom-color: #ef7c1f;
     &:hover {
-        background-color: #ef7c1f;
-        border-color: #ef7c1f;
+        background-color: #d6680f;
+        border-color: #d6680f;
+        color: white;
+        border-bottom-color: #d6680f;
+    }
+    &:focus {
+        background-color: #d6680f;
+        border-color: #d6680f;
         color: white;
         border-bottom-color: #d6680f;
     }
