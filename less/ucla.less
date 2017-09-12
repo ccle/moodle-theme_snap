@@ -382,7 +382,6 @@ label.state-visible[for="snap-cover-delete"]:before {
   width: 1.5em;
 }
 
-#page-mast #snap-changecoverimageconfirmation .ok,
 #page-mast #snap-changecoverimageconfirmation .disabled .ok,
 #page-mast #snap-changecoverimageconfirmation .ok:visited,
 #page-mast #snap-changecoverimageconfirmation .disabled .ok:visited,
@@ -429,4 +428,53 @@ label.state-visible[for="snap-cover-delete"]:before {
         color: #FFF;
         background: @ucla-blue;
     }
+}
+// Cover image add css.
+#snap-changecoverimageconfirmation-add {
+  position: relative;
+  display: inline-block;
+}
+label[for="snap-coverfiles-add"],
+#snap-changecoverimageconfirmation-add button {
+  position: relative;
+  display: none;
+  top: -0.5em;
+}
+label.state-visible[for="snap-coverfiles-add"],
+#snap-changecoverimageconfirmation-add.state-visible button {
+  display: inline-block;
+  cursor: pointer;
+}
+label.state-visible[for="snap-coverfiles-add"] .spinner-three-quarters,
+#snap-changecoverimageconfirmation-add .ok .spinner-three-quarters {
+  width: 1em;
+  height: 1em;
+  border-width: 0.25em;
+  margin-left: 0.5em;
+}
+#snap-coverfiles-add {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+label.state-visible[for="snap-coverfiles-add"] span {
+  padding: 1em;
+}
+@media (max-width: 767px) {
+  label.state-visible[for="snap-coverfiles-add"] span {
+    display: none !important;
+  }
+}
+label.state-visible[for="snap-coverfiles-add"]:before {
+  content: '';
+  background: transparent url("[[pix:theme|camera]]") no-repeat;
+  display: inline-block;
+  margin: -0.5em 0;
+  height: 1.5em;
+  width: 1.5em;
+}
+#snap-coverfiles-add {
+  cursor: pointer;
 }

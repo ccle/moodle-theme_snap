@@ -29,6 +29,7 @@ $string['action:duplicateasset'] = 'duplicate asset';
 $string['action:changesectionvisibility'] = 'change section visibility';
 $string['action:highlightsectionvisibility'] = 'highlight section visibility';
 $string['addanewsection'] = 'Create a new section';
+$string['addcoverimage'] = 'Add cover image';
 $string['addresourceoractivity'] = 'Create learning activity';
 $string['admin'] = 'Admin';
 $string['advancedbrandingheading'] = 'Advanced branding';

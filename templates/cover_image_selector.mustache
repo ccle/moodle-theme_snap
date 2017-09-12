@@ -8,6 +8,15 @@
             <button class="btn btn-sm btn-link cancel">{{#str}}cancel, moodle{{/str}}</button>
         </div>
     </div>
+    <div id="snap-coverimagecontrol-add">
+        <label class="btn btn-sm btn-file btn-solid state-visible" for="snap-coverfiles-add"><span>{{#str}}addcoverimage, theme_snap{{/str}}</span>
+           <input id="snap-coverfiles-add" name="snap-coverfiles[]" type="file" accept="{{accepttypes}}"/>
+        </label>
+        <div id="snap-changecoverimageconfirmation-add">
+            <button class="btn btn-sm btn-solid ok">{{#str}}save, admin{{/str}}</button>
+            <button class="btn btn-sm btn-link cancel">{{#str}}cancel, moodle{{/str}}</button>
+        </div>
+    </div>
     <div id="snap-coverimagecontrol-remove">
         <form action="view.php" method="get" onsubmit="return confirm('Are you sure you want to remove the cover image?');">
             <label class="btn btn-sm btn-file btn-solid state-visible" for="snap-cover-delete"><span>{{#str}}removecoverimage, theme_snap{{/str}}</span>
