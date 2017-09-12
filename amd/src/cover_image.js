@@ -114,7 +114,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
                 $('#snap-coverimagecontrol-remove').hide();
             };
 
-            // Add cover image 
+            // Add cover image.
             $('#snap-coverfiles-add').on('change', function(e) {
                 $('body').addClass('cover-image-change');
                 var files = e.target.files; // FileList object
@@ -185,7 +185,8 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
                 reader.readAsDataURL(file);
 
             });
-            // Change cover image
+            
+            // Change cover image.
             $('#snap-coverfiles').on('change', function(e) {
                 $('body').addClass('cover-image-change');
                 var files = e.target.files; // FileList object
@@ -256,6 +257,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
                 reader.readAsDataURL(file);
 
             });
+            
             // Add cover image confirmation.
             $('#snap-changecoverimageconfirmation-add .ok').click(function(){
 
@@ -294,6 +296,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
                 ], true, true);
 
             });
+            
             // Change cover image confirmation.
             $('#snap-changecoverimageconfirmation .ok').click(function(){
 
@@ -332,6 +335,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
                 ], true, true);
 
             });
+            
             // Add cover image confirmation cancel.
             $('#snap-changecoverimageconfirmation-add .cancel').click(function(){
 
@@ -343,6 +347,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'theme_snap/ajax
                 state1();
             });
             $('#snap-coverimagecontrol').addClass('snap-js-enabled');
+            
             // Change cover image confirmation cancel.
             $('#snap-changecoverimageconfirmation .cancel').click(function(){
 
