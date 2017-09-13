@@ -183,7 +183,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_snap/coursefootertoggle';
     $title = new lang_string('coursefootertoggle', 'theme_snap');
     $description = new lang_string('coursefootertoggledesc', 'theme_snap');
-    $default = $checked;
+    $default = '';
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default, $checked, $unchecked);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $snapsettings->add($setting);
