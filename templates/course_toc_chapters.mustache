@@ -1,4 +1,7 @@
 <ol id="chapters" class="chapters {{listlarge}}" start="0">
+    {{#syllabus}}
+    <li><a class="chapter-title" href="{{syllabusurl}}" onclick="window.location.reload(true);">{{syllabus}}</a></li>
+    {{/syllabus}}
     {{#chapters}}
     <li{{#iscurrent}} class="current"{{/iscurrent}}>
         {{#outputlink}}
