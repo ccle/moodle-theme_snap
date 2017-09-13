@@ -29,6 +29,9 @@ $string['action:duplicateasset'] = 'duplicate asset';
 $string['action:changesectionvisibility'] = 'change section visibility';
 $string['action:highlightsectionvisibility'] = 'highlight section visibility';
 $string['addanewsection'] = 'Create a new section';
+// START UCLA MOD: CCLE-6892 - Add ability to remove cover image.
+$string['addcoverimage'] = 'Add cover image';
+// END UCLA MOD: CCLE-6892.
 $string['addresourceoractivity'] = 'Create learning activity';
 $string['admin'] = 'Admin';
 $string['advancedbrandingheading'] = 'Advanced branding';
