@@ -35,7 +35,20 @@ class toc_renderer extends \core_renderer {
      * @throws \moodle_exception
      */
     public function course_toc() {
+        global $COURSE, $CFG;
         $coursetoc = new course_toc();
+        $coursetoc->syllabusurl = new \moodle_url('/local/ucla_syllabus/index.php', ['id' => $COURSE->id]);
+        
+        // Add link for syllabus (if needed).
+        include_once($CFG->dirroot . '/local/ucla_syllabus/locallib.php');
+        if (class_exists('ucla_syllabus_manager')) {
+            $uclasyllabusmanager = new \ucla_syllabus_manager($COURSE);
+            $syllabusname = $uclasyllabusmanager->get_syllabus_name();
+            if (!empty($syllabusname)) {
+                // Syllabus exists, so add to section links.
+                $coursetoc->syllabus = $syllabusname;
+            }
+        }
         return $this->render_from_template('theme_snap/course_toc', $coursetoc);
     }
 
