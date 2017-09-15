@@ -330,6 +330,7 @@ trait format_section_trait {
         // are restricted!
         if ($section->uservisible) {
             $output .= $this->courserenderer->course_section_cm_list($course, $section, 0);
+            echo 'class: ' . get_class($this->courserenderer) . "\n";
             // SLamour Aug 2015 - make add asset visible without turning editing on
             // N.B. this function handles the can edit permissions.
             $output .= $this->course_section_add_cm_control($course, $section->section, 0);
@@ -343,6 +344,7 @@ trait format_section_trait {
 
     // Basically unchanged from the core version adds some navigation with course_section_navigation renderable.
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
+        echo "traits print multiple\n";
         global $PAGE;
 
         $modinfo = get_fast_modinfo($course);

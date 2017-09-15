@@ -98,9 +98,9 @@ class format_ucla_renderer extends \format_ucla_renderer {
             $o .= \html_writer::end_tag('div');
             // End section header.
 
-            if ($PAGE->user_is_editing()) {
-                $o .= $this->get_jit_links($section->section);
-            }
+//            if ($PAGE->user_is_editing()) {
+//                $o .= $this->get_jit_links($section->section);
+//            }
 
             $o .= \html_writer::start_tag('div', array('class' => 'summary'));
             $o .= $this->format_summary_text($section);
@@ -130,7 +130,7 @@ class format_ucla_renderer extends \format_ucla_renderer {
      */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         global $PAGE;
-
+        echo "snap format ucla print multiple\n";
         $context = \context_course::instance($course->id);
         // Title with completion help icon.
         $completioninfo = new \completion_info($course);
@@ -151,7 +151,8 @@ class format_ucla_renderer extends \format_ucla_renderer {
         echo $this->courserenderer->course_section_cm_list($course, $thissection);
 
         if ($PAGE->user_is_editing()) {
-            $output = $this->courserenderer->course_section_add_cm_control($course, 0);
+            //$output = $this->courserenderer->course_section_add_cm_control($course, 0);
+            $output = $this->course_section_add_cm_control($course, 0);
             echo $output; // If $return argument in print_section_add_menus() set to false.
         }
         echo $this->section_footer();
@@ -199,7 +200,7 @@ class format_ucla_renderer extends \format_ucla_renderer {
             unset($sections[$section]);
         }
 
-        if ($PAGE->user_is_editing()) {
+        if ($PAGE->user_is_editing() && !empty($sections)) {
             // Print stealth sections if present.
             $modinfo = get_fast_modinfo($course);
             foreach ($sections as $section => $thissection) {

@@ -58,6 +58,7 @@ class course_renderer extends \core_course_renderer {
     $sectionreturn,
     $displayoptions = array()
     ) {
+        echo "snapcourserenderercm_list_item\n";
         $output = '';
         if ($modulehtml = $this->course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
             list($snapmodtype, $extension) = $this->get_mod_type($mod);
@@ -185,7 +186,7 @@ class course_renderer extends \core_course_renderer {
      * @return string
      */
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
-
+        echo "snap/core/course_section_cm\n";
         global $COURSE;
 
         $output = '';
