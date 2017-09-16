@@ -329,7 +329,7 @@ trait format_section_trait {
         // Otherwise you can see them, click on them and it takes you to an error page complaining that they
         // are restricted!
         if ($section->uservisible) {
-            $output .= $this->courserenderer->course_section_cm_list($course, $section, 0);
+            //$output .= $this->courserenderer->course_section_cm_list($course, $section, 0);
             echo 'class: ' . get_class($this->courserenderer) . "\n";
             // SLamour Aug 2015 - make add asset visible without turning editing on
             // N.B. this function handles the can edit permissions.

@@ -129,95 +129,176 @@ class format_ucla_renderer extends \format_ucla_renderer {
      * @param array $modnamesused used for print_section()
      */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
+//        global $PAGE;
+//        echo "snap format ucla print multiple\n";
+//        $context = \context_course::instance($course->id);
+//        // Title with completion help icon.
+//        $completioninfo = new \completion_info($course);
+//        echo $completioninfo->display_help_icon();
+//        echo $this->output->heading($this->page_title(), 2, 'accesshide');
+//
+//        // Copy activity clipboard..
+//        echo $this->course_activity_clipboard($course);
+//
+//        // Now the list of sections..
+//        echo $this->start_section_list();
+//
+//        // Section 0, aka "Site info".
+//        $thissection = '0';
+//        // Do not display section summary/header info for section 0.
+//        echo $this->section_header($thissection, $course, false);
+//
+//        echo $this->courserenderer->course_section_cm_list($course, $thissection);
+//
+//        if ($PAGE->user_is_editing()) {
+//            //$output = $this->courserenderer->course_section_add_cm_control($course, 0);
+//            $output = $this->course_section_add_cm_control($course, 0);
+//            echo $output; // If $return argument in print_section_add_menus() set to false.
+//        }
+//        echo $this->section_footer();
+//
+//        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
+//        for ($section = 1; $section <= $course->numsections; $section++) {
+//            // People who cannot view hidden sections are not allowed to see sections titles with no content.
+//            $nocontent = empty($sections[$section]->sequence) && empty($sections[$section]->summary);
+//            if (empty($nocontent) || $canviewhidden) {
+//                if (!empty($sections[$section])) {
+//                    $thissection = $sections[$section];
+//                } else {
+//                    // This will create a course section if it doesn't exist.
+//                    $thissection = get_fast_modinfo($course->id)->get_section_info($section);
+//
+//                    // The returned section is only a bare database object rather than
+//                    // a section_info object - we will need at least the uservisible
+//                    // field in it.
+//                    $thissection->uservisible = true;
+//                    $thissection->availableinfo = null;
+//                    $thissection->showavailability = 0;
+//                }
+//                // Show the section if the user is permitted to access it, OR if it's not available
+//                // but showavailability is turned on (and there is some available info text).
+//                $showsection = $thissection->uservisible ||
+//                        ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
+//                if (!$showsection) {
+//
+//                    unset($sections[$section]);
+//                    continue;
+//                }
+//
+//                // Always show section content, even if editing is off.
+//                echo $this->section_header($thissection, $course, false);
+//                if ($thissection->uservisible) {
+//                    echo $this->courserenderer->course_section_cm_list($course, $thissection);
+//
+//                    if ($PAGE->user_is_editing()) {
+//                        $output = $this->courserenderer->course_section_add_cm_control($course, $section);
+//                        echo $output;
+//                    }
+//                }
+//                echo $this->section_footer();
+//            }
+//            unset($sections[$section]);
+//        }
+//
+//        if ($PAGE->user_is_editing() && !empty($sections)) {
+//            // Print stealth sections if present.
+//            $modinfo = get_fast_modinfo($course);
+//            foreach ($sections as $section => $thissection) {
+//                if (empty($modinfo->sections[$section])) {
+//                    continue;
+//                }
+//                echo $this->stealth_section_header($section);
+//                print_section($course, $thissection, $mods, $modnamesused);
+//                echo $this->stealth_section_footer();
+//            }
+//
+//            echo $this->end_section_list();
+//
+//        } else {
+//            echo $this->end_section_list();
+//        }
+        
+        //echo "traits print multiple\n";
         global $PAGE;
-        echo "snap format ucla print multiple\n";
+
+        $modinfo = get_fast_modinfo($course);
+        $course = course_get_format($course)->get_course();
+
         $context = \context_course::instance($course->id);
-        // Title with completion help icon.
-        $completioninfo = new \completion_info($course);
-        echo $completioninfo->display_help_icon();
-        echo $this->output->heading($this->page_title(), 2, 'accesshide');
 
         // Copy activity clipboard..
-        echo $this->course_activity_clipboard($course);
+        echo $this->course_activity_clipboard($course, 0);
 
         // Now the list of sections..
         echo $this->start_section_list();
 
-        // Section 0, aka "Site info".
-        $thissection = '0';
-        // Do not display section summary/header info for section 0.
-        echo $this->section_header($thissection, $course, false);
+        foreach ($modinfo->get_section_info_all() as $section => $thissection) {
 
-        echo $this->courserenderer->course_section_cm_list($course, $thissection);
+            if ($section > $course->numsections) {
+                // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
+                continue;
+            }
 
-        if ($PAGE->user_is_editing()) {
-            //$output = $this->courserenderer->course_section_add_cm_control($course, 0);
-            $output = $this->course_section_add_cm_control($course, 0);
-            echo $output; // If $return argument in print_section_add_menus() set to false.
-        }
-        echo $this->section_footer();
+            $canviewhidden = has_capability('moodle/course:viewhiddensections', \context_course::instance($course->id));
 
-        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
-        for ($section = 1; $section <= $course->numsections; $section++) {
-            // People who cannot view hidden sections are not allowed to see sections titles with no content.
-            $nocontent = empty($sections[$section]->sequence) && empty($sections[$section]->summary);
-            if (empty($nocontent) || $canviewhidden) {
-                if (!empty($sections[$section])) {
-                    $thissection = $sections[$section];
-                } else {
-                    // This will create a course section if it doesn't exist.
-                    $thissection = get_fast_modinfo($course->id)->get_section_info($section);
-
-                    // The returned section is only a bare database object rather than
-                    // a section_info object - we will need at least the uservisible
-                    // field in it.
-                    $thissection->uservisible = true;
-                    $thissection->availableinfo = null;
-                    $thissection->showavailability = 0;
-                }
-                // Show the section if the user is permitted to access it, OR if it's not available
-                // but showavailability is turned on (and there is some available info text).
-                $showsection = $thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
-                if (!$showsection) {
-
-                    unset($sections[$section]);
+            // Student check.
+            if (!$canviewhidden) {
+                $conditional = $this->is_section_conditional($thissection);
+                // HIDDEN SECTION - If nothing in show hidden sections, and course section is not visible - don't print.
+                if (!$conditional && $course->hiddensections && !$thissection->visible) {
                     continue;
                 }
-
-                // Always show section content, even if editing is off.
-                echo $this->section_header($thissection, $course, false);
-                if ($thissection->uservisible) {
-                    echo $this->courserenderer->course_section_cm_list($course, $thissection);
-
-                    if ($PAGE->user_is_editing()) {
-                        $output = $this->courserenderer->course_section_add_cm_control($course, $section);
-                        echo $output;
-                    }
+                // CONDITIONAL SECTIONS - If its not visible to the user and we have no info why - don't print.
+                if ($conditional && !$thissection->uservisible && !$thissection->availableinfo) {
+                    continue;
                 }
-                echo $this->section_footer();
+                // If hidden sections are collapsed - print a fake li.
+                if (!$conditional && !$course->hiddensections && !$thissection->visible) {
+                    echo $this->section_hidden($section);
+                    continue;
+                }
             }
-            unset($sections[$section]);
+
+            // Output course section.
+            echo $this->new_course_section($course, $thissection, $modinfo);
         }
 
-        if ($PAGE->user_is_editing() && !empty($sections)) {
+        if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {
             // Print stealth sections if present.
-            $modinfo = get_fast_modinfo($course);
-            foreach ($sections as $section => $thissection) {
-                if (empty($modinfo->sections[$section])) {
+            foreach ($modinfo->get_section_info_all() as $section => $thissection) {
+                if ($section <= $course->numsections or empty($modinfo->sections[$section])) {
+                    // This is not stealth section or it is empty.
                     continue;
                 }
                 echo $this->stealth_section_header($section);
-                print_section($course, $thissection, $mods, $modnamesused);
+                // Don't print add resources/activities of 'stealth' sections.
                 echo $this->stealth_section_footer();
             }
-
-            echo $this->end_section_list();
-
-        } else {
-            echo $this->end_section_list();
         }
+        echo $this->end_section_list();
 
+    }
+    
+    public function new_course_section($course, $section, $modinfo) {
+        global $PAGE;
+
+        $output = $this->section_header($section, $course, false, 0);
+
+        // GThomas 21st Dec 2015 - Only output assets inside section if the section is user visible.
+        // Otherwise you can see them, click on them and it takes you to an error page complaining that they
+        // are restricted!
+        if ($section->uservisible) {
+            $output .= $this->courserenderer->course_section_cm_list($course, $section, 0);
+            echo 'class: ' . get_class($this->courserenderer) . "\n";
+            // SLamour Aug 2015 - make add asset visible without turning editing on
+            // N.B. this function handles the can edit permissions.
+            $output .= $this->course_section_add_cm_control($course, $section->section, 0);
+        }
+        if (!$PAGE->user_is_editing()) {
+            $output .= $this->render(new \theme_snap\renderables\course_section_navigation($course, $modinfo->get_section_info_all(), $section->section));
+        }
+        $output .= $this->section_footer();
+        return $output;
     }
 
 }
