@@ -26152,3 +26152,12 @@ label.state-visible[for="snap-coverfiles-add"]:before {
 #snap-coverfiles-add {
   cursor: pointer;
 }
+.ucla-format .section_add_menus.snap-modchooser {
+  border-top: 0px;
+}
+.ucla-format .section_add_menus .section-modchooser-link {
+  display: block;
+}
+.ucla-format .section_add_menus .section-modchooser-link a:before {
+  content: none;
+}
