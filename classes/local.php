@@ -1287,6 +1287,11 @@ class local {
      */
     public static function delete_course_coverimage($courseid) {
         $context = \context_course::instance($courseid);
+        
+        if (!has_capability('moodle/course:manageactivities', $context)) {
+            return false;
+        }
+        
         $contextid = $context->id;
         $fs = get_file_storage();
 
