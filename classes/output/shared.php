@@ -360,7 +360,10 @@ class shared extends \renderer_base {
         // Does the page have editable course content?
         if ($pagehascoursecontent && $PAGE->user_allowed_editing()) {
             $canmanageacts = has_capability('moodle/course:manageactivities', context_course::instance($COURSE->id));
-            if ($canmanageacts && (empty($USER->editing) || $COURSE->id === SITEID)) {
+            // START UCLA MOD: CCLE-7101 - Drag/drop upload not working for UCLA format
+            //if ($canmanageacts && (empty($USER->editing) || $COURSE->id === SITEID)) {
+            if ($canmanageacts) {
+            // END UCLA MOD: CCLE-7101
                 $modinfo = get_fast_modinfo($COURSE);
                 $modnamesused = $modinfo->get_used_module_names();
 
