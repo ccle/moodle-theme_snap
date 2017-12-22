@@ -41,6 +41,7 @@ use theme_snap\renderables\bb_dashboard_link;
 use theme_snap\renderables\course_card;
 // We have to force include this class as it's on login and the auto loader may not have been updated via a cache dump.
 require_once($CFG->dirroot.'/theme/snap/classes/renderables/login_alternative_methods.php');
+require_once($CFG->dirroot.'/theme/uclashared/renderers/core_renderer.php');
 use theme_snap\renderables\login_alternative_methods;
 
 class core_renderer extends toc_renderer {
@@ -1650,4 +1651,30 @@ HTML;
         </a>';
         return $card;
     }
+    
+    // START UCLA MOD: CCLE-6840 - Make Snap footer more like UCLA footer.
+    /**
+     * Returns copyright information used in footer from UCLA theme.
+     *
+     * @return string
+     */
+    public function copyright_info() {
+        global $PAGE;
+   
+        $renderer = new \theme_uclashared_core_renderer($PAGE, RENDERER_TARGET_GENERAL);
+        return $renderer->copyright_info();
+    }
+    
+    /**
+     * Returns string of links to be used in footer from UCLA theme.
+     *
+     * @return string
+     */
+    public function footer_links() {    
+        global $PAGE;
+   
+        $renderer = new \theme_uclashared_core_renderer($PAGE, RENDERER_TARGET_GENERAL);
+        return $renderer->footer_links();
+    }
+    // END UCLA MOD: CCLE-6840.
 }
