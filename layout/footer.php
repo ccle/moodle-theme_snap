@@ -103,8 +103,19 @@ if(!empty($socialmedialinks)) {
 <!--END UCLA MOD: CCLE-6839.-->
 <!-- close mrooms footer -->
 <div id="page-footer">
-<?php echo $OUTPUT->lang_menu(); ?>
-<?php echo $OUTPUT->standard_footer_html(); ?>
+<!--START UCLA MOD: CCLE-6840 - Make Snap footer more like UCLA footer.--> 
+<!--<?php echo $OUTPUT->lang_menu(); ?>
+<?php echo $OUTPUT->standard_footer_html(); ?>-->
+
+    <span id="copyright-info">
+        <?php echo $OUTPUT->copyright_info(); ?>
+    </span>
+     <span id="footer-links">
+        <?php echo $OUTPUT->footer_links(); ?>
+    </span>
+
+    <?php echo $OUTPUT->standard_footer_html(); ?>
+<!--END UCLA MOD: CCLE-6840.-->
 </div>
 </footer>
 <?php echo $OUTPUT->standard_end_of_body_html() ?>
