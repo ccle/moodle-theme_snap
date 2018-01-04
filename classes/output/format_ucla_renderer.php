@@ -26,9 +26,43 @@ namespace theme_snap\output;
 
 defined('MOODLE_INTERNAL') || die();
 
+use context_course;
+use html_writer;
+use moodle_url;
+use stdClass;
+use theme_snap\renderables\course_action_section_move;
+use theme_snap\renderables\course_action_section_visibility;
+use theme_snap\renderables\course_action_section_delete;
+use theme_snap\renderables\course_action_section_highlight;
+use theme_snap\renderables\course_section_navigation;
+
 class format_ucla_renderer extends \format_ucla_renderer {
 
-    use format_section_trait;
+    // Need this so course_section_add_cm_control can use the trait method when
+    // call_user_func_array() is used. Using parent:: did not work.
+    use format_section_trait {
+        course_section_add_cm_control as protected trait_course_section_add_cm_control;
+    }
+
+    /**
+     * Renders HTML for the menus to add activities and resources to the current course
+     *
+     * Overridden to only display if in editing mode.
+     *
+     * @param stdClass $course
+     * @param int $section relative section number (field course_sections.section)
+     * @param int $sectionreturn The section to link back to
+     * @param array $displayoptions additional display options, for example blocks add
+     *     option 'inblock' => true, suggesting to display controls vertically
+     * @return string
+     */
+    public function course_section_add_cm_control($course, $section, $sectionreturn = null, $displayoptions = array()) {
+        global $USER;
+        if ($USER->editing) {
+            return $this->trait_course_section_add_cm_control($course, $section, $sectionreturn, $displayoptions);
+        }
+        return '';
+    }
 
     /**
      * Generate the display of the header part of a section before
@@ -36,7 +70,7 @@ class format_ucla_renderer extends \format_ucla_renderer {
      *
      * Copied from base class method with following differences:
      *  - do not display section summary/edit link for section 0
-     *  - always display section title
+     *  - display course info for section 0
      *
      * @param stdClass $section The course_section entry from DB
      * @param stdClass $course The course entry from DB
@@ -44,175 +78,164 @@ class format_ucla_renderer extends \format_ucla_renderer {
      * @param int $sectionreturn The section to return to after an action
      * @return string HTML to output.
      */
-    protected function section_header($section, $course, $onsectionpage, $sectionreturn=0) {
-        global $PAGE;
+    protected function section_header($section, $course, $onsectionpage, $sectionreturn=null) {
+        global $PAGE, $USER, $CFG;
 
         $o = '';
-        $currenttext = '';
         $sectionstyle = '';
 
-        if (!empty($section)) {
+        // We have to get the output renderer instead of using $this->output to ensure we get the non ajax version of
+        // the renderer, even when via an AJAX request. The HTML returned has to be the same for all requests, even
+        // ajax.
+        $output = $PAGE->get_renderer('theme_snap', 'core', RENDERER_TARGET_GENERAL);
+
+        if ($section->section != 0) {
             // Only in the non-general sections.
             if (!$section->visible) {
                 $sectionstyle = ' hidden';
-            } else if (course_get_format($course)->is_section_current($section) ) {
-                $sectionstyle = ' current';
+            } else if (course_get_format($course)->is_section_current($section)) {
+                $sectionstyle = ' current state-visible set-by-server';
+            }
+        } else if ($course->format == "topics" && $course->marker == 0) {
+            $sectionstyle = ' state-visible set-by-server';
+        }
+
+        if ($this->is_section_conditional($section)) {
+            $canviewhiddensections = has_capability(
+                'moodle/course:viewhiddensections',
+                context_course::instance($course->id)
+            );
+            if (!$section->uservisible || $canviewhiddensections) {
+                $sectionstyle .= ' conditional';
             }
         }
 
-        if (!empty($section)) {
-            $o .= \html_writer::start_tag('li', array('id' => 'section-'.$section->section,
-                'class' => 'section main clearfix'.$sectionstyle));
-        } else {
-            $o .= \html_writer::start_tag('li', array('id' => 'section-0',
-                'class' => 'section main clearfix'.$sectionstyle));
-        }
-        
-        if (!empty($section)) {
-            // Print any external notices.
-            $this->print_external_notices($section->section, $course);
+        // SHAME - the tabindex is intefering with moodle js.
+        // SHAME - Remove tabindex when editing menu is shown.
+        $sectionarrayvars = array('id' => 'section-'.$section->section,
+        'class' => 'section main clearfix'.$sectionstyle,
+        'role' => 'article',
+        'aria-label' => get_section_name($course, $section));
+        if (!$PAGE->user_is_editing()) {
+            $sectionarrayvars['tabindex'] = '-1';
         }
 
-        // For site info, instead of printing section title/summary, just
-        // print site info releated stuff instead.
-        if (empty($section)) {
-            $o .= \html_writer::start_tag('div', array('class' => 'content'));
+        $o .= html_writer::start_tag('li', $sectionarrayvars);
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
+
+        // When not on a section page, we display the section titles except the general section if null.
+        $hasnamenotsecpg = (!$onsectionpage && ($section->section != 0 || !is_null($section->name)));
+
+        // When on a section page, we only display the general section title, if title is not the default one.
+        $hasnamesecpg = ($onsectionpage && ($section->section == 0 && !is_null($section->name)));
+
+        $classes = ' accesshide';
+        if ($hasnamenotsecpg || $hasnamesecpg) {
+            $classes = '';
+        }
+
+        $context = context_course::instance($course->id);
+
+        $sectiontitle = get_section_name($course, $section);
+        // Better first section title.
+        // START UCLA MOD: CCLE-6985 - Improve display of modules
+//        if ($sectiontitle == get_string('general') && $section->section == 0) {
+//            $sectiontitle = get_string('introduction', 'theme_snap');
+//        }
+//
+//        // Untitled topic title.
+//        $testemptytitle = get_string('topic').' '.$section->section;
+//        if ($sectiontitle == $testemptytitle && has_capability('moodle/course:update', $context)) {
+//            $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
+//            $o .= "<h2 class='sectionname'><a href='$url' title='".s(get_string('editcoursetopic', 'theme_snap'))."'>".get_string('defaulttopictitle', 'theme_snap')."</a></h2>";
+//        } else {
+//            $o .= $output->heading($sectiontitle, 2, 'sectionname' . $classes);
+//        }
+        if ($section->section == 0) {
             ob_start();
             $this->print_external_notices('0', $course);
             $this->print_section_zero_content();
             $o .= ob_get_contents();
             ob_end_clean();
         } else {
-            $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
-            $o .= \html_writer::tag('div', $leftcontent, array('class' => 'left side'));
-
-            $o .= \html_writer::start_tag('div', array('class' => 'content'));
-
-            // Start section header with section links!
-            $o .= \html_writer::start_tag('div', array('class' => 'sectionheader'));
-            $o .= $this->output->heading($this->section_title($section, $course), 3, 'sectionname');
-
-            $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
-            $o .= \html_writer::tag('div', $rightcontent, array('class' => 'right side',
-                    'style' => 'position: relative; top: -40px;'));
-            $o .= \html_writer::end_tag('div');
-            // End section header.
-
-            $o .= \html_writer::start_tag('div', array('class' => 'summary'));
-            $o .= $this->format_summary_text($section);
-
-            $o .= \html_writer::end_tag('div');
-
-            $context = \context_course::instance($course->id);
-            $o .= $this->section_availability_message($section,
-                    has_capability('moodle/course:viewhiddensections', $context));
+            // Untitled topic title.
+            $testemptytitle = get_string('topic').' '.$section->section;
+            if ($sectiontitle == $testemptytitle && has_capability('moodle/course:update', $context)) {
+                $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
+                $o .= "<h2 class='sectionname'><a href='$url' title='".s(get_string('editcoursetopic', 'theme_snap'))."'>".get_string('defaulttopictitle', 'theme_snap')."</a></h2>";
+            } else {
+                $o .= $output->heading($sectiontitle, 2, 'sectionname' . $classes);
+            }
         }
-        
+        // END UCLA MOD: CCLE-6985
+
+        // Section drop zone.
+        $caneditcourse = has_capability('moodle/course:update', $context);
+        if ($caneditcourse && $section->section != 0) {
+            $o .= "<a class='snap-drop section-drop' data-title='".
+                    s($sectiontitle)."' href='#'>_</a>";
+        }
+
+        // Section editing commands.
+        $sectiontoolsarray = $this->section_edit_controls($course, $section, $sectionreturn);
+
+        // START UCLA MOD: CCLE-6985 - Improve Editing mode on/off
+        //if (has_capability('moodle/course:update', $context)) {
+        if (has_capability('moodle/course:update', $context) && $USER->editing) {
+        // END UCLA MOD: CCLE-6985
+            if (!empty($sectiontoolsarray)) {
+                $sectiontools = implode(' ', $sectiontoolsarray);
+                $o .= html_writer::tag('div', $sectiontools, array(
+                    'class' => 'snap-section-editing actions',
+                    'role' => 'region',
+                    'aria-label' => get_string('topicactions', 'theme_snap')
+                ));
+            }
+        }
+
+        // Current section message.
+        $o .= '<span class="snap-current-tag">'.get_string('current', 'theme_snap').'</span>';
+
+        // Draft message.
+        $o .= '<div class="snap-draft-tag">'.get_string('draft', 'theme_snap').'</div>';
+
+        // Availabiliy message.
+        $conditionalicon = '<img aria-hidden="true" role="presentation" class="svg-icon" src="'.$output->pix_url('conditional', 'theme').'" />';
+        $conditionalmessage = $this->section_availability_message($section,
+            has_capability('moodle/course:viewhiddensections', $context));
+        if ($conditionalmessage !== '') {
+            $o .= '<div class="snap-conditional-tag">'.$conditionalicon.$conditionalmessage.'</div>';
+        }
+
+        // Section summary/body text.
+        $o .= "<div class='summary'>";
+        $summarytext = $this->format_summary_text($section);
+
+        $canupdatecourse = has_capability('moodle/course:update', $context);
+
+        // START UCLA MOD: CCLE-6985 - Improve display of modules
+//        // Welcome message when no summary text.
+//        if (empty($summarytext) && $canupdatecourse) {
+//            $summarytext = "<p>".get_string('defaultsummary', 'theme_snap')."</p>";
+//            if ($section->section == 0) {
+//                $editorname = format_string(fullname($USER));
+//                $summarytext = "<p>".get_string('defaultintrosummary', 'theme_snap', $editorname)."</p>";
+//            }
+//        }
+        // END UCLA MOD: CCLE-6985
+
+        $o .= $summarytext;
+        // START UCLA MOD: CCLE-6985 - Improve display of modules
+        //if ($canupdatecourse) {
+        if ($canupdatecourse && $section->section != 0 && $USER->editing) {
+        // END UCLA MOD: CCLE-6985
+            $url = new moodle_url('/course/editsection.php', array('id' => $section->id, 'sr' => $sectionreturn));
+            $icon = '<img aria-hidden="true" role="presentation" class="svg-icon" src="'.$this->output->pix_url('pencil', 'theme').'" /><br/>';
+            $o .= '<a href="'.$url.'" class="edit-summary">'.$icon.get_string('editcoursetopic', 'theme_snap'). '</a>';
+        }
+        $o .= "</div>";
+
         return $o;
     }
     
-    /**
-     * Output the html for a multiple section page.
-     *
-     * Copied from base class method with following differences:
-     *  - print section 0 related stuff
-     *  - always show section content, even if editing is off
-     *
-     * @param stdClass $course The course entry from DB
-     * @param array $sections The course_sections entries from the DB
-     * @param array $mods used for print_section()
-     * @param array $modnames used for print_section()
-     * @param array $modnamesused used for print_section()
-     */
-    public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-        global $PAGE;
-
-        $context = \context_course::instance($course->id);
-        // Title with completion help icon.
-        $completioninfo = new \completion_info($course);
-        echo $completioninfo->display_help_icon();
-        echo $this->output->heading($this->page_title(), 2, 'accesshide');
-
-        // Copy activity clipboard..
-        echo $this->course_activity_clipboard($course);
-
-        // Now the list of sections..
-        echo $this->start_section_list();
-
-        // Section 0, aka "Site info".
-        $thissection = '0';
-        // Do not display section summary/header info for section 0.
-        echo $this->section_header($thissection, $course, false);
-
-        echo $this->courserenderer->course_section_cm_list($course, $thissection);
-
-        if ($PAGE->user_is_editing()) {
-            $output = $this->course_section_add_cm_control($course, 0);
-            echo $output; // If $return argument in print_section_add_menus() set to false.
-        }
-        echo $this->section_footer();
-
-        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
-        for ($section = 1; $section <= $course->numsections; $section++) {
-            // People who cannot view hidden sections are not allowed to see sections titles with no content.
-            $nocontent = empty($sections[$section]->sequence) && empty($sections[$section]->summary);
-            if (empty($nocontent) || $canviewhidden) {
-                if (!empty($sections[$section])) {
-                    $thissection = $sections[$section];
-                } else {
-                    // This will create a course section if it doesn't exist.
-                    $thissection = get_fast_modinfo($course->id)->get_section_info($section);
-
-                    // The returned section is only a bare database object rather than
-                    // a section_info object - we will need at least the uservisible
-                    // field in it.
-                    $thissection->uservisible = true;
-                    $thissection->availableinfo = null;
-                    $thissection->showavailability = 0;
-                }
-                // Show the section if the user is permitted to access it, OR if it's not available
-                // but showavailability is turned on (and there is some available info text).
-                $showsection = $thissection->uservisible ||
-                        ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo));
-                if (!$showsection) {
-
-                    unset($sections[$section]);
-                    continue;
-                }
-
-                // Always show section content, even if editing is off.
-                echo $this->section_header($thissection, $course, false);
-                if ($thissection->uservisible) {
-                    echo $this->courserenderer->course_section_cm_list($course, $thissection);
-
-                    if ($PAGE->user_is_editing()) {
-                        $output = $this->course_section_add_cm_control($course, $section);
-                        echo $output;
-                    }
-                }
-                echo $this->section_footer();
-            }
-            unset($sections[$section]);
-        }
-
-        if ($PAGE->user_is_editing() && !empty($sections)) {
-            // Print stealth sections if present.
-            $modinfo = get_fast_modinfo($course);
-            foreach ($sections as $section => $thissection) {
-                if (empty($modinfo->sections[$section])) {
-                    continue;
-                }
-                echo $this->stealth_section_header($section);
-                print_section($course, $thissection, $mods, $modnamesused);
-                echo $this->stealth_section_footer();
-            }
-
-            echo $this->end_section_list();
-
-        } else {
-            echo $this->end_section_list();
-        }
-
-    }
-
 }

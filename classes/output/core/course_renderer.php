@@ -38,8 +38,9 @@ use theme_snap\activity_meta;
 
 require_once($CFG->dirroot . "/mod/book/locallib.php");
 require_once($CFG->libdir . "/gradelib.php");
+require_once($CFG->dirroot . "/local/publicprivate/renderer.php");
 
-class course_renderer extends \core_course_renderer {
+class course_renderer extends \local_publicprivate_renderer {
     /**
      * override course render for course module list items
      * add additional classes to list item (see $modclass)
@@ -187,7 +188,7 @@ class course_renderer extends \core_course_renderer {
     public function course_section_cm($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
 
         global $COURSE;
-
+debugging('course_section_cm called');
         $output = '';
         // We return empty string (because course module will not be displayed at all)
         // if:
