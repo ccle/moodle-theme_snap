@@ -24,8 +24,33 @@
     background-color: #9999cc;
     font-weight: bold;
 }
+#page-footer{
+    font-size: 0.8em;
+}
+#page-footer #footer-links{
+    float: right;
+    margin-right: 8px;
+    
+    a {
+        color: #ddd; 
+        margin-left: 5px; 
+        margin-right: 5px; 
+        font-weight:300;
+        
+        &:hover {
+            color: #fff;
+        }
+    }
+}
+#page-footer #copyright-info {
+    float: left;
+    margin-left:8px;
+    font-weight:300;
+    color: #fff;
+}
 #page-footer .performanceinfo {
-    margin: 10px 20%;
+    margin: 4% 15%;
+    color: white;
 }
 #page-footer .performanceinfo span {
     display: block;
@@ -50,7 +75,7 @@
 }
 .performanceinfo .cachesused .cache-stats-heading,
 .performanceinfo .cachesused .cache-total-stats {
-    font-weight: bold;
+    font-weight: 500;
     font-size: 110%;
     margin-top: 0.3em;
 }
@@ -59,6 +84,10 @@
     display: inline-block;
     vertical-align: top;
     background-color: @well-bg;
+    padding: 0px;
+    border: 1px solid #999;
+    min-height: 4em;
+    color: #000;  
 }
 .cache-store-stats {
     padding: 0 1.3em;
@@ -77,4 +106,9 @@
 #page-footer .purgecaches,
 #page-footer .performanceinfo {
     text-align: center;
+}
+
+#page-footer .purgecaches a {
+    color: #ff785a;
+    font-weight: bold;
 }
