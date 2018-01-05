@@ -13456,6 +13456,19 @@ fieldset.coursesearchbox label {
   padding: 0.5em;
   font-size: large;
 }
+.mform-invite .label-bstp {
+  color: white;
+  padding: 0px 8px;
+  border-radius: 5px;
+  font-family: "Roboto", "Fira Sans", "Segoe UI", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+.mform-invite .label-primary {
+  background-color: #428bCA;
+}
+.mform-invite .label-warning {
+  background-color: #F0AD4E;
+}
 /* modules.less */
 select {
   width: auto;
