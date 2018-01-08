@@ -32,18 +32,19 @@ $inccoursefooterclass = ($PAGE->theme->settings->coursefootertoggle && strpos($P
 /* snap custom footer */
 
 /* custom footer edit button - always shown */
+// START UCLA MOD: CCLE-6840 - Make Snap footer more like UCLA footer.
+/*
 $footnote = empty($PAGE->theme->settings->footnote) ? '' : $PAGE->theme->settings->footnote;
 if ($this->page->user_is_editing() && $PAGE->pagetype == 'site-index') {
     $url = new moodle_url('/admin/settings.php', ['section' => 'themesettingsnap'], 'admin-footnote');
     $link = html_writer::link($url, get_string('editcustomfooter', 'theme_snap'), ['class' => 'btn btn-inverse btn-sm']);
     $footnote .= '<p class="text-right">'.$link.'</p>';
 }
-
+*/
 /* custom menu edit button - only shown if menu exists */
-// START UCLA MOD: CCLE-6837 - Move custom menu items back as Help Dropdown
-// $custommenu = $OUTPUT->custom_menu();
-$custommenu = array();
-// END UCLA MOD: CCLE-6837.
+/*
+$custommenu = $OUTPUT->custom_menu();
+
 if (!empty($custommenu) && $this->page->user_is_editing() && $PAGE->pagetype == 'site-index') {
     $url = new moodle_url('/admin/settings.php', ['section' => 'themesettings'], 'id_s__custommenuitems');
     $link = html_writer::link($url, get_string('editcustommenu', 'theme_snap'), ['class' => 'btn btn-inverse btn-sm']);
@@ -69,8 +70,9 @@ if (!empty($custommenu) && !empty($footnote)) {
     echo $custommenu;
     echo '</div></div>';
 }
-
+*/
 /* Social media links */
+/*
 $socialmedialinks = '';
 if (!empty($PAGE->theme->settings->facebook)) {
     $socialmedialinks .= $this->social_menu_link('facebook', $PAGE->theme->settings->facebook);
@@ -86,7 +88,8 @@ if (!empty($PAGE->theme->settings->instagram)) {
 }
 if(!empty($socialmedialinks)) {
     echo '<div id="snap_socialmedia_links">'.$socialmedialinks.'</div>';
-}
+}*/
+// END UCLA MOD: CCLE-6840.
 ?>
 <!--START UCLA MOD: CCLE-6839-remove junk in footer.-->
 <!--<div id='mrooms-footer' class="helplink text-right">
@@ -103,10 +106,10 @@ if(!empty($socialmedialinks)) {
 <!--END UCLA MOD: CCLE-6839.-->
 <!-- close mrooms footer -->
 <div id="page-footer">
-<!--START UCLA MOD: CCLE-6839-remove junk in footer.-->
-<!-- <?php echo $OUTPUT->lang_menu(); ?> -->
-<!--END UCLA MOD: CCLE-6839.-->
 <!--START UCLA MOD: CCLE-6840 - Make Snap footer more like UCLA footer.--> 
+<!--<?php echo $OUTPUT->lang_menu(); ?>
+<?php echo $OUTPUT->standard_footer_html(); ?>-->
+
     <span id="copyright-info">
         <?php echo $OUTPUT->copyright_info(); ?>
     </span>
