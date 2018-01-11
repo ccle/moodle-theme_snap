@@ -13556,7 +13556,7 @@ select {
   border: none;
 }
 #page-footer {
-  margin-top: 1em;
+  /*margin-top: 1em;*/
   padding: 1em 0;
   border-top: 2px solid #eee;
 }
@@ -17291,8 +17291,31 @@ fieldset[disabled] .yui-button button.active {
   background-color: #9999cc;
   font-weight: bold;
 }
+#page-footer {
+  font-size: 0.8em;
+}
+#page-footer #footer-links {
+  float: right;
+  margin-right: 8px;
+}
+#page-footer #footer-links a {
+  color: #ddd;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: 300;
+}
+#page-footer #footer-links a:hover {
+  color: #fff;
+}
+#page-footer #copyright-info {
+  float: left;
+  margin-left: 8px;
+  font-weight: 300;
+  color: #fff;
+}
 #page-footer .performanceinfo {
-  margin: 10px 20%;
+  margin: 4% 15%;
+  color: white;
 }
 #page-footer .performanceinfo span {
   display: block;
@@ -17317,7 +17340,7 @@ fieldset[disabled] .yui-button button.active {
 }
 .performanceinfo .cachesused .cache-stats-heading,
 .performanceinfo .cachesused .cache-total-stats {
-  font-weight: bold;
+  font-weight: 500;
   font-size: 110%;
   margin-top: 0.3em;
 }
@@ -17326,6 +17349,10 @@ fieldset[disabled] .yui-button button.active {
   display: inline-block;
   vertical-align: top;
   background-color: #f5f5f5;
+  padding: 0px;
+  border: 1px solid #999;
+  min-height: 4em;
+  color: #000;
 }
 .cache-store-stats {
   padding: 0 1.3em;
@@ -17344,6 +17371,10 @@ fieldset[disabled] .yui-button button.active {
 #page-footer .purgecaches,
 #page-footer .performanceinfo {
   text-align: center;
+}
+#page-footer .purgecaches a {
+  color: #ff785a;
+  font-weight: bold;
 }
 /**
  * Main swatch - includes all snap swatch files.
@@ -20844,7 +20875,7 @@ body.hascontinuecancel.path-site #page {
 }
 #moodle-footer a:not(.btn),
 #moodle-footer a:not(.btn):hover {
-  color: #fff;
+  /* color: #fff;*/
 }
 #moodle-footer .langmenu {
   color: #666;
@@ -20865,21 +20896,23 @@ body.hascontinuecancel.path-site #page {
 #page-footer .langmenu {
   text-align: right;
 }
+/*
 #page-footer .performanceinfo {
-  margin: 4%;
-  text-align: left;
+    margin: 4%;
+    text-align: left;
 }
+
 #page-footer .performanceinfo .cachesused .cache-definition-stats {
-  background-color: transparent;
-}
+    background-color: transparent;
+}*/
 .cache-store-stats.lowhits {
-  background-color: orange;
+  background-color: #f3f2aa;
 }
 .cache-store-stats.nohits {
-  background-color: red;
+  background-color: #ffd3d9;
 }
 .cache-store-stats.hihits {
-  background-color: #323232;
+  background-color: #e7f1c3;
 }
 .nav-justified + .nav-justified {
   margin-top: 1em;

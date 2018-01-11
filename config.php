@@ -60,7 +60,7 @@ $THEME->doctype = 'html5';
 $THEME->yuicssmodules = array('cssgrids'); // This is required for joule grader.
 $THEME->name = 'snap';
 $THEME->parents = array();
-$THEME->sheets = array('moodle');
+$THEME->sheets = array('moodle', '../../uclashared/style/flatpickr.min');
 $THEME->supportscssoptimisation = false;
 
 $THEME->editor_sheets = array('editor');
